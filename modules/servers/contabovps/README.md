@@ -3,7 +3,7 @@
 Módulo de provisioning para WHMCS 8.x que integra la [API de Contabo](https://api.contabo.com/) para gestión de VPS desde el panel del cliente.
 
 **Versión:** 1.0.0  
-**Autor:** Luis (WHMCS Module Dev)  
+**Autor:** Ed Álvarez — Plus Soluciones  
 **Compatible con:** WHMCS 8.1.3+, PHP 8.2  
 **Licencia:** MIT  
 

@@ -6,7 +6,7 @@
  * Supports: CreateAccount, SuspendAccount, UnsuspendAccount, TerminateAccount
  * Client Area: power controls, snapshot management
  *
- * @author  Luis (WHMCS Module Dev)
+ * @author  Ed Álvarez — Plus Soluciones <edgardoalvarez100@gmail.com>
  * @version 1.0.0
  * @license MIT
  */
