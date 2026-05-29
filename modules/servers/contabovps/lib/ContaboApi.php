@@ -112,7 +112,10 @@ class ContaboApi
     {
         $data = $this->request('GET', "/compute/instances/{$instanceId}");
         if (array_is_list($data)) {
-            return $data[0] ?? [];
+            if ($data === []) {
+                throw new \RuntimeException('ContaboApi: instance not found in response');
+            }
+            return $data[0];
         }
         return $data;
     }

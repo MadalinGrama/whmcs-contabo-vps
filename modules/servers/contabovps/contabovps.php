@@ -111,7 +111,7 @@ function contabovps_getApi(array $params): ContaboApi
     $apiPassword = '';
     $accessHash = trim((string)($params['serveraccesshash'] ?? ''));
     if ($accessHash !== '') {
-        $lines = preg_split("/\r?\n|\r/", $accessHash);
+        $lines = preg_split('/\R/', $accessHash);
         $lines = array_values(array_filter(array_map('trim', $lines), 'strlen'));
         if (count($lines) >= 2) {
             $apiUser = $lines[0];
