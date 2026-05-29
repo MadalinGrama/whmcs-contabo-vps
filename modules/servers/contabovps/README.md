@@ -78,7 +78,7 @@ Módulo de provisioning para WHMCS 8.x que integra la [API de Contabo](https://a
 |-------------|-------------|---------|
 | **Server Username** | Client ID (OAuth2) de Contabo | `INT-12345678` |
 | **Server Password** | Client Secret (OAuth2) de Contabo | `AbCdEfGh...` |
-| **Access Hash** | Primera línea: API User (email). Segunda línea: API Password. Opcional: `user:password` en una sola línea | `tu@email.com`<br>`tuPassword` |
+| **Access Hash** | Primera línea: API User (email). Segunda línea: API Password. Opcional: `user:password` en una sola línea | `tu@email.com` (línea 1) / `tuPassword` (línea 2) |
 
 5. Clic en **Test Connection** (opcional) y luego **Save Changes**
 

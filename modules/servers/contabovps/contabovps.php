@@ -117,7 +117,11 @@ function contabovps_getApi(array $params): ContaboApi
             $apiUser = $lines[0];
             $apiPassword = $lines[1];
         } elseif (count($lines) === 1 && str_contains($lines[0], ':')) {
-            [$apiUser, $apiPassword] = array_map('trim', explode(':', $lines[0], 2));
+            [$userPart, $passPart] = array_map('trim', explode(':', $lines[0], 2));
+            if ($userPart !== '' && $passPart !== '') {
+                $apiUser = $userPart;
+                $apiPassword = $passPart;
+            }
         }
     }
 
