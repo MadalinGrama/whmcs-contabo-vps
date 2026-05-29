@@ -72,14 +72,24 @@ Módulo de provisioning para WHMCS 8.x que integra la [API de Contabo](https://a
    - **Name:** `Contabo API Server`
    - **Hostname:** `api.contabo.com` (referencial, no se usa para conexión)
    - **Module:** `contabovps`
-4. En la sección **Module Settings**, ingresa las credenciales:
+4. En la sección **Module Settings**, usa los campos estándar del servidor:
 
-| Campo | Descripción | Ejemplo |
-|-------|-------------|---------|
-| Client ID (OAuth2) | ID de cliente OAuth2 de Contabo | `INT-12345678` |
-| Client Secret (OAuth2) | Secret OAuth2 | `AbCdEfGh...` |
-| API User (email) | Email de tu cuenta Contabo | `tu@email.com` |
-| API Password | Contraseña de tu cuenta Contabo | `tuPassword` |
+| Campo WHMCS | Descripción | Ejemplo |
+|-------------|-------------|---------|
+| **Server Username** | Client ID (OAuth2) de Contabo | `INT-12345678` |
+| **Server Password** | Client Secret (OAuth2) de Contabo | `AbCdEfGh...` |
+| **Access Hash** | Primera línea: API User (email). Segunda línea: API Password. Opcional: `user:password` en una sola línea | Ver ejemplo abajo |
+
+**Ejemplo de Access Hash (multilínea):**
+```
+tu@email.com
+tuPassword
+```
+
+**Ejemplo Access Hash (una sola línea):**
+```
+tu@email.com:tuPassword
+```
 
 5. Clic en **Test Connection** (opcional) y luego **Save Changes**
 
@@ -115,12 +125,11 @@ Cuando un cliente contrata el servicio VPS:
 
 ## Config Fields (referencia)
 
-| configoption | Campo | Descripción |
-|:---:|-------|-------------|
-| `configoption1` | Client ID | OAuth2 Client ID (ej: `INT-12345678`) |
-| `configoption2` | Client Secret | OAuth2 Client Secret |
-| `configoption3` | API User | Email de la cuenta Contabo |
-| `configoption4` | API Password | Contraseña de la cuenta Contabo |
+| Campo WHMCS | Uso | Descripción |
+|-------------|-----|-------------|
+| `serverusername` | Client ID | OAuth2 Client ID (ej: `INT-12345678`) |
+| `serverpassword` | Client Secret | OAuth2 Client Secret |
+| `serveraccesshash` | API User / API Password | Línea 1 = API User (email), línea 2 = API Password (o `user:password` en una sola línea) |
 
 ---
 
