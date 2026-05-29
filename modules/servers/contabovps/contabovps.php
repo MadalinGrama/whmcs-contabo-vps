@@ -104,10 +104,35 @@ function contabovps_ConfigOptions(): array
  */
 function contabovps_getApi(array $params): ContaboApi
 {
-    $clientId     = $params['configoption1'] ?? '';
-    $clientSecret = $params['configoption2'] ?? '';
-    $apiUser      = $params['configoption3'] ?? '';
-    $apiPassword  = $params['configoption4'] ?? '';
+    $clientId     = trim((string)($params['serverusername'] ?? ''));
+    $clientSecret = trim((string)($params['serverpassword'] ?? ''));
+
+    $apiUser = '';
+    $apiPassword = '';
+    $accessHash = trim((string)($params['serveraccesshash'] ?? ''));
+    if ($accessHash !== '') {
+        $lines = preg_split("/\r\n|\n|\r/", $accessHash);
+        $lines = array_values(array_filter(array_map('trim', $lines), 'strlen'));
+        if (count($lines) >= 2) {
+            $apiUser = $lines[0];
+            $apiPassword = $lines[1];
+        } elseif (count($lines) === 1 && str_contains($lines[0], ':')) {
+            [$apiUser, $apiPassword] = array_map('trim', explode(':', $lines[0], 2));
+        }
+    }
+
+    if ($clientId === '') {
+        $clientId = trim((string)($params['configoption1'] ?? ''));
+    }
+    if ($clientSecret === '') {
+        $clientSecret = trim((string)($params['configoption2'] ?? ''));
+    }
+    if ($apiUser === '') {
+        $apiUser = trim((string)($params['configoption3'] ?? ''));
+    }
+    if ($apiPassword === '') {
+        $apiPassword = trim((string)($params['configoption4'] ?? ''));
+    }
 
     if (!$clientId || !$clientSecret || !$apiUser || !$apiPassword) {
         throw new \RuntimeException('ContaboVPS: faltan credenciales API en la configuración del servidor');
@@ -256,7 +281,7 @@ function contabovps_TerminateAccount(array $params): string
 function contabovps_AdminServicesTabFields(array $params): array
 {
     try {
-        $api = _contabovps_getApi($params);
+        $api = contabovps_getApi($params);
         $instanceId = $params['customfields']['instance_id'] ?? '';
 
         if (empty($instanceId)) {
@@ -276,7 +301,7 @@ function contabovps_AdminServicesTabFields(array $params): array
         $smarty->assign('ipv4',        $instance['ipConfig']['v4']['ip'] ?? '');
         $smarty->assign('ipv6',        $instance['ipConfig']['v6']['ip'] ?? '');
         $smarty->assign('cpuCores',    $instance['cpuCores'] ?? 0);
-        $smarty->assign('ramGb',       round(($instance['memoryMb'] ?? 0) / 1024, 1));
+        $smarty->assign('ramGb',       round(($instance['ramMb'] ?? 0) / 1024, 1));
         $smarty->assign('diskGb',      round(($instance['diskMb'] ?? 0) / 1024, 1));
         $smarty->assign('snapshots',   is_array($snapshots) ? $snapshots : []);
 
