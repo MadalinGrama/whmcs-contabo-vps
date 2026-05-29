@@ -113,7 +113,7 @@ class ContaboApi
         $data = $this->request('GET', "/compute/instances/{$instanceId}");
         if (array_is_list($data)) {
             if ($data === []) {
-                throw new \RuntimeException('ContaboApi: instance not found in response');
+                throw new \RuntimeException('ContaboApi: empty response received for instance request');
             }
             return $data[0];
         }
